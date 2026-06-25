@@ -10,7 +10,6 @@ from inspect_ai.model import (
 from inspect_ai.scorer import (
     CORRECT,
     INCORRECT,
-    NOANSWER,
     PARTIAL,
     Score,
     Scorer,
@@ -143,11 +142,14 @@ def claim_support(
         grade = _parse_grade(result.completion)
 
         if grade is None:
-            return Score(
-                value=NOANSWER,
+            # The grader model failed to emit a parseable verdict. That is a
+            # failure of the scoring instrument, not a "no answer" from the model
+            # under test — so the sample is left unscored (excluded from the
+            # accuracy denominator) rather than recorded as NOANSWER.
+            return Score.unscored(
                 answer=answer,
                 explanation=result.completion,
-                metadata={"grading": "PARSE_FAIL", "grader_prompt": prompt},
+                metadata={"grader_error": "parse_fail", "grader_prompt": prompt},
             )
 
         value = {

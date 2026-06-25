@@ -1,9 +1,11 @@
+import math
+
 import pytest
 
 from inspect_ai import Task, eval
 from inspect_ai.dataset import Sample
 from inspect_ai.model import ContentText, ModelOutput, get_model
-from inspect_ai.scorer import CORRECT, INCORRECT, NOANSWER, PARTIAL
+from inspect_ai.scorer import CORRECT, INCORRECT, PARTIAL
 
 from inspect_claim_support import claim_support
 
@@ -45,15 +47,16 @@ def test_claim_support_grade_mapping(grader_output, expected):
     assert score.value == expected
 
 
-def test_claim_support_parse_failure_returns_noanswer():
-    # No parseable GRADE: line → NOANSWER, but the subject answer must still be
-    # preserved on the score (matching the model_graded convention, #4025).
+def test_claim_support_parse_failure_returns_unscored():
+    # No parseable GRADE: line → unscored() (the grader is the scoring
+    # instrument; its failure is not a no-answer from the model under test). The
+    # subject answer must still be preserved on the score.
     subject_answer = "The file was read successfully."
     score = _run("I think this looks fine, but no verdict here.", subject_answer)
-    assert score.value == NOANSWER
+    assert math.isnan(score.value)
     assert score.answer == subject_answer
     assert score.metadata is not None
-    assert score.metadata["grading"] == "PARSE_FAIL"
+    assert score.metadata["grader_error"] == "parse_fail"
 
 
 def test_claim_support_handles_literal_braces():

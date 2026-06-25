@@ -6,8 +6,10 @@ A **claim-support** (faithfulness / groundedness) scorer for
 `claim_support` assesses whether a claimed answer is *actually substantiated by
 the conversation transcript* — not whether it is correct in absolute terms. It is
 a model-graded scorer with a rubric that maps SUPPORTED / PARTIAL / UNSUPPORTED
-onto Inspect's CORRECT / PARTIAL / INCORRECT, and returns NOANSWER on a grader
-parse failure.
+onto Inspect's CORRECT / PARTIAL / INCORRECT. A grader parse failure (the grader
+model not emitting a parseable verdict) is treated as a scoring-instrument
+failure and returns `Score.unscored()`, keeping the sample out of the accuracy
+denominator rather than recording it as a non-answer from the model under test.
 
 ### Why it earns its place: absence isn't support
 
