@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "inspect-claim-support"
+version = "0.1.0"
+description = "A claim-support / faithfulness scorer for Inspect AI — does the transcript actually substantiate the claimed answer?"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "avalyset" }]
+keywords = ["inspect_ai", "scorer", "evaluation", "faithfulness", "groundedness"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["inspect_ai"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/avalyset/inspect-claim-support"
+Repository = "https://github.com/avalyset/inspect-claim-support"
+Issues = "https://github.com/avalyset/inspect-claim-support/issues"
+
+[project.entry-points.inspect_ai]
+inspect_claim_support = "inspect_claim_support._registry"
+
+[tool.hatch.build.targets.wheel]
+packages = ["inspect_claim_support"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "inspect_claim_support",
+    "tests",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
