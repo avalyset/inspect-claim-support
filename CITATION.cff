@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: inspect-claim-support
+abstract: "A claim-support / faithfulness scorer for Inspect AI — does the transcript actually substantiate the claimed answer?"
+type: software
+authors:
+  - given-names: Eirik
+    family-names: Botten Nicolaysen
+    orcid: "https://orcid.org/0009-0001-9188-6788"
+    affiliation: EcoDeco AS
+version: 0.1.1
+license: MIT
+repository-code: "https://github.com/avalyset/inspect-claim-support"
+url: "https://github.com/avalyset/inspect-claim-support"
+keywords:
+  - inspect_ai
+  - scorer
+  - evaluation
+  - faithfulness
+  - groundedness
+date-released: "2026-06-25"
