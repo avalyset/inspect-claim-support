@@ -1,5 +1,7 @@
 # inspect-claim-support
 
+[![ci](https://github.com/avalyset/inspect-claim-support/actions/workflows/ci.yml/badge.svg)](https://github.com/avalyset/inspect-claim-support/actions/workflows/ci.yml)
+
 A **claim-support** (faithfulness / groundedness) scorer for
 [Inspect AI](https://inspect.aisi.org.uk/), packaged as a standalone extension.
 
